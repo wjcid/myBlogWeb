@@ -9,20 +9,8 @@ export default {
         component: resolve => require(['@/views/develop/list'], resolve)
       },
       {
-        path: '1',
+        path: 'con/:id',
         component: resolve => require(['@/views/develop/article/index.vue'], resolve)
-      },
-      {
-        path: '2',
-        component: resolve => require(['@/views/develop/article/index_1.vue'], resolve)
-      },
-      {
-        path: '3',
-        component: resolve => require(['@/views/develop/article/index_2.vue'], resolve)
-      },
-      {
-        path: '4',
-        component: resolve => require(['@/views/develop/article/index_3.vue'], resolve)
       }
     ]
   }

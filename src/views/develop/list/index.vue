@@ -14,10 +14,12 @@
                 <el-col :span="16">
                     <el-card shadow="always" :body-style="{ padding: '0px' }" v-for="art in art_list" :key="art.id">
                       <div class="img_div"><el-image :src="art.src" lazy></el-image></div>
-                      <div class="card-div" @click="$router.push(art.route)" style="cursor: pointer;">
+                      <div class="card-div" @click="$router.push('/develop/con/'+art.id)" style="cursor: pointer;">
                           <div class="card-title">{{art.title}}</div>
-                          <div class="card-tag">标签：<el-tag class="list-tag" style="margin:5px 5px;" v-for="tagd in art.arttag" :key="tagd.index" :type="tagd.type">{{tagd.name}}</el-tag></div>
-                          <div class="card-time"><i class="el-icon-date"></i> {{art.time}}</div>
+                          <div class="card-tag">标签：
+                            <el-tag class="list-tag" style="margin:5px 5px;" v-for="(tagd,key) in art.tag" :key="key" :type="tagtype">{{tagd}}</el-tag>
+                          </div>
+                          <div class="card-time"><i class="el-icon-date"></i> {{art.create_time}}</div>
                       </div>
                     </el-card>
                 </el-col>
@@ -33,9 +35,10 @@
 
 <script>
 export default {
-data () {
+  data() {
     return {
-      artcount: 5,
+      tagtype: '',
+      artcount: 0,
       art_list: [
         {
           id: 2,
@@ -51,131 +54,71 @@ data () {
               type: ''
             }
           ]
-        },
-        {
-          id: 3,
-          title: 'MySQL优化方法总结（一）',
-          time: '2020-07-06',
-          src: require('@/assets/img/8.jpg'),
-          route: '/develop/'+3,
-          arttag: [
-            {
-              inedx: 2,
-              name: '数据库',
-              gourl: '/',
-              type: 'info'
-            }
-          ]
-        },
-        {
-          id: 1,
-          title: '阿里云搭建ss fq代理',
-          time: '2020-07-06',
-          src: require('@/assets/img/7.jpg'),
-          route: '/develop/'+1,
-          arttag: [
-            {
-              inedx: 3,
-              name: 'Linux',
-              gourl: '/',
-              type: 'warning'
-            }
-          ]
-        },
-        {
-          id: 4,
-          title: 'vue生命周期',
-          time: '2020-07-06',
-          src: require('@/assets/img/9.jpg'),
-          route: '/develop/'+4,
-          arttag: [
-            {
-              inedx: 4,
-              name: 'Vue',
-              gourl: '/',
-              type: 'success'
-            }
-          ]
         }
       ],
-        tag_list: [
-          {
-            inedx: 1,
-            name: 'PHP',
-            gourl: '/',
-            type: ''
-          },
-          {
-            inedx: 2,
-            name: '数据库',
-            gourl: '/',
-            type: 'info'
-          },
-          {
-            inedx: 3,
-            name: 'Linux',
-            gourl: '/',
-            type: 'warning'
-          },
-          {
-            inedx: 4,
-            name: 'Vue',
-            gourl: '/',
-            type: 'success'
-          },
-          {
-            inedx: 5,
-            name: 'go',
-            gourl: '/',
-            type: 'danger'
-          }
-        ],
-        brolist: [
-          {
-            index: 1,
-            name: '阿里云搭建ss fq代理',
-            num: '34'
-          },
-          {
-            index: 2,
-            name: 'PHP7新特性总结',
-            num: '33'
-          },
-          {
-            index: 3,
-            name: 'MySQL优化方法总结（一）',
-            num: '32'
-          },
-          {
-            index: 4,
-            name: 'vue生命周期',
-            num: '31'
-          },
-          {
-            index: 5,
-            name: '基于JwtAuth实现API验证',
-            num: '30'
-          },
-          {
-            index: 6,
-            name: '前端AES加密，后端解密',
-            num: '29'
-          },
-          {
-            index: 7,
-            name: 'Linux常用命令',
-            num: '28'
-          }
-        ],
-        time_list: [
-          {
-            index: 1,
-            name: '2020-07',
-            num: 7
-          }
-        ],
+      tag_list: [
+        {
+          inedx: 1,
+          name: 'PHP',
+          gourl: '/',
+          type: ''
+        },
+        {
+          inedx: 2,
+          name: '数据库',
+          gourl: '/',
+          type: 'info'
+        },
+        {
+          inedx: 3,
+          name: 'Linux',
+          gourl: '/',
+          type: 'warning'
+        },
+        {
+          inedx: 4,
+          name: 'Vue',
+          gourl: '/',
+          type: 'success'
+        },
+        {
+          inedx: 5,
+          name: 'go',
+          gourl: '/',
+          type: 'danger'
+        }
+      ],
+      brolist: [],
+      time_list: [
+        {
+          index: 1,
+          name: '2020-07',
+          num: 7
+        }
+      ],
     }
-}
+  },
+  created () {
+    this.rankList();
+    this.artList();
+  },
+  methods: {
+    rankList(){
+      this.$axios.post(this.$consts.BASE_URL+'rankList', {
+          type:1
+        }).then(res=>{
+          this.brolist = res.data.data.rankList
+        })
+    },
+    artList(){
+      this.$axios.post(this.$consts.BASE_URL+'artWebList', {
+          type:1
+        }).then(res=>{
+          this.art_list = res.data.data.artList.reverse()
+          this.artcount = this.art_list.length
+        })
+    }
+  }
 }
 </script>
 

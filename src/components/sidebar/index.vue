@@ -23,9 +23,9 @@
       <el-card shadow="always">
         <div style="padding-bottom:20px;"><i class="el-icon-reading"></i> 浏览排行</div>
         <ul style="list-style: none;padding-inline-start: 0px;">
-          <li v-for="bros in brolist" :key="bros.index">
-            <span style="padding-right:20px;">{{bros.index}}.</span>
-            <a>{{bros.name}}</a><span class="li_span">{{bros.num}}</span>
+          <li v-for="(bros,key) in brolist" :key="key">
+            <span style="padding-right:20px;">{{key+1}}.</span>
+            <a>{{bros.title}}</a><span class="li_span">{{bros.read_num}}</span>
           </li>
         </ul>
       </el-card>
