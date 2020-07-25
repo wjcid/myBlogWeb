@@ -34,7 +34,7 @@
                     <div class="card-div">
                         <div class="card-title">书籍分享</div>
                         <div class="card-msg">事情简单而自然，简单而自然的事往往是对的。</div>
-                        <div class="btn" @click="$router.push('/read')">
+                        <div class="btn" @click="$router.push('/read/list')">
                             <span class="noselect">出发浏览 <i class="el-icon-d-arrow-right"></i></span>
                             <div class="vertical"></div>
                             <div class="horizontal"></div>
@@ -129,7 +129,7 @@ data() {
 .main {
     width: 100%;
     height: 100vh;
-    background: url(../../assets/img/2.jpg);
+    background: url(http://qdv86w78m.bkt.clouddn.com/2.jpg);
     background-size: 100% 100%;
     background-attachment: fixed;
 }

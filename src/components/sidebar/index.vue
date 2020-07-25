@@ -15,7 +15,7 @@
       <el-card shadow="always">
         <div style="padding-bottom:20px;"><i class="el-icon-collection-tag"></i> 分类标签</div>
         <div>
-          <el-tag style="margin:5px 5px;" v-for="tagd in tag_list" :key="tagd.index" :type="tagd.type">{{tagd.name}}</el-tag>
+          <el-tag style="margin:5px 5px;cursor:pointer;" v-for="tagd in tag_list" :key="tagd.index" :type="tagd.type"  @click="tagArtList(tagd.name)">{{tagd.name}}</el-tag>
         </div>
       </el-card>
     </div>
@@ -64,8 +64,14 @@ export default {
       }
   },
   methods: {
-    go (e) {
-      window.open(e, '_blank')
+    tagArtList(tagd){
+      console.log(tagd)
+      this.$axios.post(this.$consts.BASE_URL+'tagArtList', {
+          type:1,
+          tagname:tagd
+        }).then(res=>{
+          this.emit('event1',res.data.data.artList)
+        })
     }
   }
 }

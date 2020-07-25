@@ -16,6 +16,7 @@ methods:{
         var canvas = document.getElementById("canvas_bg");
         canvas.width = document.documentElement.clientWidth;
         canvas.height = document.getElementById("con_main").offsetHeight;// 获取内容容器的高
+        console.log(canvas.height)
         var ctx = canvas.getContext("2d");
         //创建小球的构造函数
         function Ball() {

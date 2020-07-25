@@ -1,6 +1,6 @@
 // 生活日志
 export default {
-    path: '/livesty',
+    path: '/livesty/',
     name: 'livesty',
     component: resolve => { require(['@/views/livesty'], resolve) },
     children: [
@@ -9,8 +9,8 @@ export default {
         component: resolve => require(['@/views/livesty/list'], resolve)
       },
       {
-        path: '1',
-        component: resolve => require(['@/views/livesty/article/index_1.vue'], resolve)
+        path: 'con/:id',
+        component: resolve => require(['@/views/livesty/article/index.vue'], resolve)
       }
     ]
   }

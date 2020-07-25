@@ -12,7 +12,7 @@ export default [
     {
       name: 'data_maintenance',
       title: '书籍分享',
-      route: '/read'
+      route: '/read/list'
     },
     {
       name: 'data_auditing',

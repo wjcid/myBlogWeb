@@ -3,8 +3,8 @@
     <Header />
     <div class="binner">
       <div class="bin_div">
-        <div class="bin_title">航海日志</div>
-        <div class="bin_msg">生活就像航海，充满未知和挑战 | <i class="el-icon-notebook-2"></i> 文章总数：{{artcount}}</div>
+        <div class="bin_title">书籍分享</div>
+        <div class="bin_msg">不想一成不变的活着，所以不能停止学习 | <i class="el-icon-notebook-2" style="font-size:10px;"></i> 文章总数：{{artcount}}</div>
       </div>
     </div>
     <CanvasBg />
@@ -12,20 +12,22 @@
         <div class="con_list">
             <el-row :gutter="20">
                 <el-col :span="16">
-                    <el-card shadow="always" :body-style="{ padding: '0px' }" v-for="art in art_list.slice((currentPage-1)*pagesize,currentPage*pagesize)" :key="art.id">
-                      <div class="img_div"><el-image :src="art.pic_url" lazy></el-image></div>
-                      <div class="card-div" @click="$router.push('/livesty/con/'+art.id)" style="cursor: pointer;">
-                          <div class="card-title">{{art.title}}</div>
-                          <div class="card-tag">标签：<el-tag class="list-tag" style="margin:5px 5px;" v-for="tagd in art.arttag" :key="tagd.index" :type="tagd.type">{{tagd.name}}</el-tag></div>
-                          <div class="card-time"><i class="el-icon-date"></i> {{art.create_time}}</div>
+                    <div class="book" v-for="(binfo, index) in book_list.slice((currentPage-1)*pagesize,currentPage*pagesize)" :key="index">
+                      <el-image :src="binfo.pic_url" lazy @click="$router.push('/read/con/'+binfo.id)" style="cursor: pointer;"></el-image>
+                      <div class="book-name">{{binfo.title}}</div>
+                      <div class="book-info"> 
+                        <el-tag class="list-tag" style="margin:5px 5px;" :type="binfo.tag_type">{{binfo.tag_name}}</el-tag> |
+                        <span><i class="el-icon-collection"></i> {{binfo.create_time}}</span>
                       </div>
-                    </el-card>
+                      <el-divider></el-divider>
+                    </div>
                 </el-col>
+                
                 <el-col :span="8">
                     <Sidebar :tag_list="tag_list" :brolist="brolist" :time_list="time_list"/>
                 </el-col>
             </el-row>
-             <el-pagination
+            <el-pagination
               background
               @current-change="handleCurrentChange"
               :current-page="currentPage"
@@ -43,36 +45,43 @@
 export default {
   data () {
       return {
-        artcount: 2,
+        artcount: 5,
         currentPage:1, //初始页
-        pagesize:5,    //每页的数据
-        brolist: [],
-        art_list: [],
+        pagesize:20,    //每页的数据
+        src1: require('@/assets/img/1900568573_ii_cover.jpg'),
+        book_list: [],
           tag_list: [
             {
               inedx: 1,
-              name: '兴趣',
+              name: '小说',
+              gourl: '/',
+              type: 'danger'
+            },
+            {
+              inedx: 2,
+              name: '理财',
               gourl: '/',
               type: 'warning'
             },
             {
-              inedx: 2,
-              name: '健康',
+              inedx: 3,
+              name: '心理',
               gourl: '/',
               type: 'success'
             },
             {
-              inedx: 3,
-              name: '杂谈',
+              inedx: 4,
+              name: '码农技术',
               gourl: '/',
-              type: 'info'
+              type: ''
             }
           ],
+          brolist: [],
           time_list: [
             {
               index: 1,
               name: '2020-07',
-              num: 2
+              num: 6
             }
           ],
       }
@@ -87,17 +96,17 @@ export default {
     },
     rankList(){
       this.$axios.post(this.$consts.BASE_URL+'rankList', {
-          type:3
+          type:2
         }).then(res=>{
           this.brolist = res.data.data.rankList
         })
     },
     artList(){
       this.$axios.post(this.$consts.BASE_URL+'artWebList', {
-          type:3
+          type:2
         }).then(res=>{
-          this.art_list = res.data.data.artList.reverse()
-          this.artcount = this.art_list.length
+          this.book_list = res.data.data.artList.reverse()
+          this.artcount = this.book_list.length
         })
     }
   }
@@ -134,44 +143,27 @@ export default {
     width: 100%;
     padding-bottom: 30px;
 }
-.el-card {
-  margin-bottom: 20px;
+.book {
+  width: 20%;
+  height: 285px;
+  float: left;
 }
-.card-div {
-    width: 50%;
-    height: 240px;
-    float: right;
-}
-.card-title {
-    padding: 50px 30px 10px 30px;
-    font-size: 20px;
-    text-align: left;
-}
-.card-tag {
-    padding: 0px 30px;
-    font-size: 14px;
-    text-align: left;
+.el-image {
+  width: 80%;
+  height: 180px;
 }
 .list-tag {
   padding: 0px 5px;
   height: 20px;
   line-height: 20px;
 }
-.card-time {
-  padding: 10px 30px;
-  font-size: 14px;
-  text-align: left;
+.book-info {
+  font-size: 12px;
 }
-.img_div {
-  width: 50%;
-  height: 240px;
-  float: left;
-  overflow: hidden;
-}
-.el-image {
-  transition: all 0.6s;
-}
-.el-image:hover {
-    transform: scale(1.2); /* 放大1.2倍 */
+.el-divider--horizontal {
+    display: block;
+    height: 2px;
+    width: 100%;
+    margin: 20px 0;
 }
 </style>

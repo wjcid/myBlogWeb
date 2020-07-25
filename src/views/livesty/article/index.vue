@@ -3,26 +3,20 @@
     <Header />
     <div class="binner">
       <div class="bin_div">
-        <div class="bin_title">Vue生命周期</div>
+        <div class="bin_title">{{title}}</div>
         <div class="bin_msg">勤思考，多总结</div>
       </div>
     </div>
     <CanvasBg />
     <div class="con_main" id="con_main">
         <el-card shadow="always">
-            <div class="content">
-              Vue生命周期
-            <div style="text-align:center;font-size:20px;">准备中----- <br>
-                <el-image :src="srcz" lazy></el-image>
-              </div>
-              
-            </div>
+            <div class="content" v-html="content" v-highlight></div>
             <div class="upload">
               <a href=""> 点击下载文档</a>  <div style="font-size:14px;color:red;">*我自己总结的word文档</div>
             </div>
             <el-row :gutter="10">
-              <el-col :span="12">上一篇：阿里云搭建ss fq代理</el-col>
-              <el-col :span="12">下一篇：无</el-col>
+              <el-col :span="12">上一篇：MySQL优化方法总结（一）</el-col>
+              <el-col :span="12">下一篇：vue生命周期</el-col>
             </el-row>
         </el-card>
     </div>
@@ -32,11 +26,35 @@
 
 <script>
 export default {
-data () {
-    return {
-      srcz: require('@/assets/img/404.jpg')
+  created () {
+    this.addRead();
+    this.artContent();
+  },
+  methods: {
+    addRead(){
+      this.$axios.post(this.$consts.BASE_URL+'addRead', {
+          type:3,
+          id:this.$route.params.id
+        }).then(res=>{
+          console.log(res.data.code)
+        })
+    },
+    artContent(){
+      this.$axios.post(this.$consts.BASE_URL+'artContent', {
+          id:this.$route.params.id,
+          type:3
+        }).then(res=>{
+          this.content = res.data.data.content.content
+          this.title = res.data.data.content.title
+        })
     }
-}
+  },
+  data () {
+      return {
+        title: '',
+        content: ''
+      }
+  }
 }
 </script>
 
@@ -79,10 +97,6 @@ data () {
 .content {
   padding-bottom: 50px;
 }
-.el-image {
-  height: 200px;
-  width: 100px;
-}
 .upload {
   padding-bottom: 50px;
 }
@@ -93,5 +107,8 @@ data () {
 }
 .el-col {
   background:linear-gradient(to top, rgb(255,255,255) 5%, rgb(110,215,255) 70%);
+}
+.ql-syntax {
+  background: black;
 }
 </style>

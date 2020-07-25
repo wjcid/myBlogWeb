@@ -12,12 +12,19 @@
         <div class="con_list">
             <el-row :gutter="20">
                 <el-col :span="16">
-                    <el-card shadow="always" :body-style="{ padding: '0px' }" v-for="art in art_list" :key="art.id">
-                      <div class="img_div"><el-image :src="art.src" lazy></el-image></div>
+                    <el-card shadow="always" :body-style="{ padding: '0px' }" v-for="art in art_list.slice((currentPage-1)*pagesize,currentPage*pagesize)" :key="art.id">
+                      <div class="img_div"><el-image :src="art.pic_url" lazy></el-image></div>
                       <div class="card-div" @click="$router.push('/develop/con/'+art.id)" style="cursor: pointer;">
                           <div class="card-title">{{art.title}}</div>
                           <div class="card-tag">标签：
-                            <el-tag class="list-tag" style="margin:5px 5px;" v-for="(tagd,key) in art.tag" :key="key" :type="tagtype">{{tagd}}</el-tag>
+                            <el-tag 
+                              class="list-tag" 
+                              style="margin:5px 5px;" 
+                              v-for="(tagd,key) in art.tag.split(',')" :key="key"
+                              @event1="change($event)"
+                              :type="tagtypes[Math.floor(Math.random() *5)]">
+                              {{tagd}}
+                            </el-tag>
                           </div>
                           <div class="card-time"><i class="el-icon-date"></i> {{art.create_time}}</div>
                       </div>
@@ -27,6 +34,14 @@
                     <Sidebar :tag_list="tag_list" :brolist="brolist" :time_list="time_list"/>
                 </el-col>
             </el-row>
+            <el-pagination
+              background
+              @current-change="handleCurrentChange"
+              :current-page="currentPage"
+              layout="prev, pager, next"
+              :total="artcount"
+              :page-size="pagesize">
+            </el-pagination>
         </div>
     </div>
     <Footer />
@@ -37,25 +52,10 @@
 export default {
   data() {
     return {
-      tagtype: '',
+      tagtypes: ['','info','warning','success','danger'],
       artcount: 0,
-      art_list: [
-        {
-          id: 2,
-          title: 'PHP7新特性总结',
-          time: '2020-07-06',
-          src: require('@/assets/img/6.jpg'),
-          route: '/develop/'+2,
-          arttag: [
-            {
-              inedx: 1,
-              name: 'PHP',
-              gourl: '/',
-              type: ''
-            }
-          ]
-        }
-      ],
+      currentPage:1, //初始页
+      pagesize:5,    //每页的数据
       tag_list: [
         {
           inedx: 1,
@@ -89,6 +89,7 @@ export default {
         }
       ],
       brolist: [],
+      art_list:[],
       time_list: [
         {
           index: 1,
@@ -103,6 +104,9 @@ export default {
     this.artList();
   },
   methods: {
+    handleCurrentChange: function(currentPage){
+      this.currentPage = currentPage;
+    },
     rankList(){
       this.$axios.post(this.$consts.BASE_URL+'rankList', {
           type:1
@@ -117,6 +121,10 @@ export default {
           this.art_list = res.data.data.artList.reverse()
           this.artcount = this.art_list.length
         })
+    },
+    change(data) {
+       this.art_list = data
+       this.artcount = this.art_list.length
     }
   }
 }
@@ -151,6 +159,7 @@ export default {
 .con_main {
     width: 100%;
     padding-bottom: 30px;
+    height: 1372px;
 }
 .el-card {
   margin-bottom: 20px;
