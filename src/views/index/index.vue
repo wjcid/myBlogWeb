@@ -33,7 +33,7 @@
                     <div style="width:50%;float:right;overflow: hidden;"><el-image class="img2" :src="src2" lazy></el-image></div>
                     <div class="card-div">
                         <div class="card-title">书籍分享</div>
-                        <div class="card-msg">事情简单而自然，简单而自然的事往往是对的。</div>
+                        <div class="card-msg">一本好书需要慢慢读、细细品味。书籍推荐，分享感悟。</div>
                         <div class="btn" @click="$router.push('/read/list')">
                             <span class="noselect">出发浏览 <i class="el-icon-d-arrow-right"></i></span>
                             <div class="vertical"></div>
@@ -46,7 +46,7 @@
                 <el-card shadow="always" class="oncard" :body-style="{ padding: '0px' }">
                      <div style="width:100%;overflow: hidden;"><el-image class="img3" :src="src3" lazy></el-image></div>
                      <div class="card-div-3">
-                        <div class="card-title-3">航海日志</div>
+                        <div class="card-title-3">生活日志</div>
                         <div class="card-msg-3">想记录的时候记录一下，有感慨的时候抒发一下。</div>
                         <div class="btn btn-3" @click="$router.push('/livesty/list')">
                             <span class="noselect">出发浏览 <i class="el-icon-d-arrow-right"></i></span>

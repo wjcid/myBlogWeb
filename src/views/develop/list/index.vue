@@ -4,7 +4,7 @@
     <div class="binner">
       <div class="bin_div">
         <div class="bin_title">技术总结</div>
-        <div class="bin_msg">勤思考，多总结 | <i class="el-icon-notebook-2"></i> 文章总数：{{artcount}}</div>
+        <div class="bin_msg">踏上一条总结越来越多、头发越来越少之路 | <i class="el-icon-notebook-2"></i> 文章总数：{{artcount}}</div>
       </div>
     </div>
     <CanvasBg />
@@ -21,7 +21,6 @@
                               class="list-tag" 
                               style="margin:5px 5px;" 
                               v-for="(tagd,key) in art.tag.split(',')" :key="key"
-                              @event1="change($event)"
                               :type="tagtypes[Math.floor(Math.random() *5)]">
                               {{tagd}}
                             </el-tag>
@@ -31,7 +30,7 @@
                     </el-card>
                 </el-col>
                 <el-col :span="8">
-                    <Sidebar :tag_list="tag_list" :brolist="brolist" :time_list="time_list"/>
+                    <Sidebar :tag_list="tag_list" :brolist="brolist" :time_list="time_list" @event1="change" :page_type="page_type" :route_url="route_url"/>
                 </el-col>
             </el-row>
             <el-pagination
@@ -52,6 +51,8 @@
 export default {
   data() {
     return {
+      page_type: 1,
+      route_url: '/develop/con/',
       tagtypes: ['','info','warning','success','danger'],
       artcount: 0,
       currentPage:1, //初始页
@@ -118,11 +119,11 @@ export default {
       this.$axios.post(this.$consts.BASE_URL+'artWebList', {
           type:1
         }).then(res=>{
-          this.art_list = res.data.data.artList.reverse()
+          this.art_list = res.data.data.artList
           this.artcount = this.art_list.length
         })
     },
-    change(data) {
+    change(data){
        this.art_list = data
        this.artcount = this.art_list.length
     }

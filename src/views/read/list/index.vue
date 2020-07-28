@@ -4,7 +4,7 @@
     <div class="binner">
       <div class="bin_div">
         <div class="bin_title">书籍分享</div>
-        <div class="bin_msg">不想一成不变的活着，所以不能停止学习 | <i class="el-icon-notebook-2" style="font-size:10px;"></i> 文章总数：{{artcount}}</div>
+        <div class="bin_msg">小说--人性--心理--理财，慢慢积累，厚积薄发 | <i class="el-icon-notebook-2" style="font-size:10px;"></i> 文章总数：{{artcount}}</div>
       </div>
     </div>
     <CanvasBg />
@@ -16,7 +16,11 @@
                       <el-image :src="binfo.pic_url" lazy @click="$router.push('/read/con/'+binfo.id)" style="cursor: pointer;"></el-image>
                       <div class="book-name">{{binfo.title}}</div>
                       <div class="book-info"> 
-                        <el-tag class="list-tag" style="margin:5px 5px;" :type="binfo.tag_type">{{binfo.tag_name}}</el-tag> |
+                        <el-tag class="list-tag" 
+                          style="margin:5px 5px;" 
+                          v-for="(tagd,key) in binfo.tag.split(',')" 
+                          :key="key"
+                          :type="tagtypes[Math.floor(Math.random() *5)]">{{tagd}}</el-tag> |
                         <span><i class="el-icon-collection"></i> {{binfo.create_time}}</span>
                       </div>
                       <el-divider></el-divider>
@@ -24,7 +28,7 @@
                 </el-col>
                 
                 <el-col :span="8">
-                    <Sidebar :tag_list="tag_list" :brolist="brolist" :time_list="time_list"/>
+                    <Sidebar :tag_list="tag_list" :brolist="brolist" :time_list="time_list" @event1="change" :page_type="page_type" :route_url="route_url"/>
                 </el-col>
             </el-row>
             <el-pagination
@@ -45,7 +49,10 @@
 export default {
   data () {
       return {
-        artcount: 5,
+        page_type: 2,
+        route_url: '/read/con/',
+        tagtypes: ['','info','warning','success','danger'],
+        artcount: 0,
         currentPage:1, //初始页
         pagesize:20,    //每页的数据
         src1: require('@/assets/img/1900568573_ii_cover.jpg'),
@@ -81,7 +88,7 @@ export default {
             {
               index: 1,
               name: '2020-07',
-              num: 6
+              num: 10
             }
           ],
       }
@@ -105,9 +112,13 @@ export default {
       this.$axios.post(this.$consts.BASE_URL+'artWebList', {
           type:2
         }).then(res=>{
-          this.book_list = res.data.data.artList.reverse()
+          this.book_list = res.data.data.artList
           this.artcount = this.book_list.length
         })
+    },
+    change(data){
+       this.book_list = data
+       this.artcount = this.book_list.length
     }
   }
 }

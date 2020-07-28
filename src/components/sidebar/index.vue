@@ -25,7 +25,7 @@
         <ul style="list-style: none;padding-inline-start: 0px;">
           <li v-for="(bros,key) in brolist" :key="key">
             <span style="padding-right:20px;">{{key+1}}.</span>
-            <a>{{bros.title}}</a><span class="li_span">{{bros.read_num}}</span>
+            <a @click="$router.push(route_url+bros.id)" style="cursor: pointer;">{{bros.title}}</a><span class="li_span">{{bros.read_num}}</span>
           </li>
         </ul>
       </el-card>
@@ -53,6 +53,12 @@ export default {
     time_list: {
       type: Array
     },
+    page_type: {
+      type: Number
+    },
+    route_url: {
+      type: String
+    }
   },
   data () {
       return {
@@ -65,12 +71,11 @@ export default {
   },
   methods: {
     tagArtList(tagd){
-      console.log(tagd)
       this.$axios.post(this.$consts.BASE_URL+'tagArtList', {
-          type:1,
+          type:this.page_type,
           tagname:tagd
         }).then(res=>{
-          this.emit('event1',res.data.data.artList)
+          this.$emit('event1',res.data.data.artList)
         })
     }
   }

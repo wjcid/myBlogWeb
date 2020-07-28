@@ -12,11 +12,11 @@
         <el-card shadow="always">
             <div class="content" v-html="content" v-highlight></div>
             <div class="upload">
-              <a href=""> 点击下载文档</a>  <div style="font-size:14px;color:red;">*我自己总结的word文档</div>
+              <a href="#"> 点击下载文档</a>  <div style="font-size:14px;color:red;">*我自己总结的word文档</div>
             </div>
             <el-row :gutter="10">
-              <el-col :span="12">上一篇：MySQL优化方法总结（一）</el-col>
-              <el-col :span="12">下一篇：vue生命周期</el-col>
+              <el-col :span="12" style="cursor: pointer;"><div @click="$router.push({path:'/develop/con/'+last_id},onComplete => {},onAbort => {})">上一篇：{{last_title}}</div></el-col>
+              <el-col :span="12" style="cursor: pointer;"><div @click="$router.push({path:'/develop/con/'+next_id},onComplete => {},onAbort => {})">下一篇：{{next_title}}</div></el-col>
             </el-row>
         </el-card>
     </div>
@@ -29,6 +29,12 @@ export default {
   created () {
     this.addRead();
     this.artContent();
+  },
+  inject: ['reload'],
+  watch: {
+    '$route' () {
+      this.reload()
+    }
   },
   methods: {
     addRead(){
@@ -46,13 +52,22 @@ export default {
         }).then(res=>{
           this.content = res.data.data.content.content
           this.title = res.data.data.content.title
+          this.last_title = res.data.data.ud.last_title
+          this.next_title = res.data.data.ud.next_title
+          this.last_id = res.data.data.ud.last_id
+          this.next_id = res.data.data.ud.next_id
         })
     }
   },
   data () {
       return {
         title: '',
-        content: ''
+        content: '',
+        last_id: 0,
+        last_title: '',
+        next_id: 0,
+        next_title: ''
+
       }
   }
 }

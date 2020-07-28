@@ -4,7 +4,7 @@
         W J C
     </div>
     <nav>
-        <a @click="$router.push(menu.route)" v-for="(menu, index) in $consts.NAV_MENUS" :key="index" style="cursor: pointer;">{{menu.title}}</a>
+        <a @click="$router.push({path:menu.route},onComplete => {},onAbort => {})" v-for="(menu, index) in $consts.NAV_MENUS" :key="index" style="cursor: pointer;">{{menu.title}}</a>
         <div id="indicator"></div>
     </nav>
     
