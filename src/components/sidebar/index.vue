@@ -77,6 +77,9 @@ export default {
         }).then(res=>{
           this.$emit('event1',res.data.data.artList)
         })
+    },
+    go (e) {
+      window.open(e, '_blank')
     }
   }
 }

@@ -1,5 +1,5 @@
 <template>
-    <canvas id="canvas_bg" style="position: absolute;z-index: -2;left:0;"></canvas>
+    <canvas id="canvas_bg" style="position: fixed;z-index: -2;left:0;top:0px"></canvas>
 </template>
 
 <script>
@@ -15,7 +15,7 @@ methods:{
       getCanvas(){
         var canvas = document.getElementById("canvas_bg");
         canvas.width = document.documentElement.clientWidth;
-        canvas.height = document.getElementById("con_main").offsetHeight;// 获取内容容器的高
+        canvas.height = window.screen.height;// 获取屏幕的高
         console.log(canvas.height)
         var ctx = canvas.getContext("2d");
         //创建小球的构造函数
