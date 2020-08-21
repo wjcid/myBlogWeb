@@ -7,16 +7,24 @@
         <div class="bin_msg">勤思考，多总结</div>
       </div>
     </div>
-    <CanvasBg />
+    <CanvasBg v-if='$store.state.width<768?false:true' />
     <div class="con_main" id="con_main">
         <el-card shadow="always">
             <div class="content" v-html="content" v-highlight></div>
-            <div class="upload">
+            <div class="upload" v-if='$store.state.width<768?false:true'>
               <a href=""> 点击下载文档</a>  <div style="font-size:14px;color:red;">*我自己总结的word文档</div>
             </div>
             <el-row :gutter="10">
-              <el-col :span="12" style="cursor: pointer;"><div @click="$router.push({path:'/develop/con/'+last_id},onComplete => {},onAbort => {})">上一篇：{{last_title}}</div></el-col>
-              <el-col :span="12" style="cursor: pointer;"><div @click="$router.push({path:'/develop/con/'+next_id},onComplete => {},onAbort => {})">下一篇：{{next_title}}</div></el-col>
+              <el-col :lg="12" :xs="24" style="cursor: pointer;">
+                <div @click="$router.push({path:'/develop/con/'+last_id},onComplete => {},onAbort => {})">
+                <i class="el-icon-d-arrow-left" v-if='$store.state.width>768?false:true'></i>上一篇：{{last_title}}
+                </div>
+              </el-col>
+              <el-col :lg="12" :xs="24" style="cursor: pointer;">
+                <div @click="$router.push({path:'/develop/con/'+next_id},onComplete => {},onAbort => {})">
+                下一篇：{{next_title}}<i class="el-icon-d-arrow-right" v-if='$store.state.width>768?false:true'></i>
+                </div>
+              </el-col>
             </el-row>
         </el-card>
     </div>
@@ -124,5 +132,48 @@ export default {
 }
 .ql-syntax {
   background: black;
+}
+@media screen and (max-width:768px) {
+  .binner {
+    height: 300px;
+  }
+  .el-card {
+    width: 95%;
+  }
+  .bin_div {
+    position:absolute;
+    left: 30px;
+    bottom:30px;
+  }
+  .bin_title {
+    font-size: 20px;
+  }
+  .upart {
+    text-align: right;
+    padding-right: 10px;
+  }
+  .dowart {
+    text-align: left;
+    padding-left: 10px;
+  }
+  .el-icon-d-arrow-left {
+    padding-right: 20px;
+    animation: icon-left-rig 1.5s infinite;
+  }
+  .el-icon-d-arrow-right {
+    padding-left: 20px;
+    animation: icon-left-rig 1.5s infinite;
+  }
+  @keyframes icon-left-rig {  
+    0% {  
+        transform: translate(0px, 0px);  
+    }  
+    50% {  
+        transform: translate(10px, 0px);  
+    }  
+    100% {  
+        transform: translate(0px, 0px);  
+    }  
+  }
 }
 </style>

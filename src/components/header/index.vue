@@ -36,7 +36,7 @@ export default {
 </script>
 <!-- 导航栏特效 -->
 <style src="./css/style.css"></style>
-<!-- Add "scoped" attribute to limit CSS to this component only -->`
+<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .header {
     color: white;
@@ -53,7 +53,8 @@ export default {
    width: 10%;
    height: 60px;
    line-height: 60px;
-   float: right; 
+   float: right;
+   padding-right: 20px;
 }
 .el-icon-more {
     color: white;

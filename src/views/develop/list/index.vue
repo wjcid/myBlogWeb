@@ -7,7 +7,7 @@
         <div class="bin_msg">踏上一条总结越来越多、头发越来越少之路 | <i class="el-icon-notebook-2"></i> 文章总数：{{artcount}}</div>
       </div>
     </div>
-    <CanvasBg />
+    <CanvasBg v-if='$store.state.width<768?false:true'/>
     <div class="con_main" id="con_main">
         <div class="con_list">
             <el-row :gutter="20">

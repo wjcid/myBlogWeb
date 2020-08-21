@@ -7,7 +7,7 @@
         <div class="bin_msg">小说--人性--心理--理财，慢慢积累，厚积薄发 | <i class="el-icon-notebook-2" style="font-size:10px;"></i> 文章总数：{{artcount}}</div>
       </div>
     </div>
-    <CanvasBg />
+    <CanvasBg v-if='$store.state.width<768?false:true' />
     <div class="con_main" id="con_main">
         <div class="con_list">
             <el-row :gutter="20">
