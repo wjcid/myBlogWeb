@@ -16,13 +16,13 @@
             <div>一緒に冒険に行こう、出発</div>
         </div>
         <el-row :gutter="20">
-            <el-col :span="14">
+            <el-col :lg="14" :xs="24">
                 <el-card shadow="always" :body-style="{ padding: '0px' }">
                     <div style="width:50%;float:left;overflow: hidden;"><el-image class="img1" :src="src1" lazy></el-image></div>
-                    <div class="card-div">
+                    <div class="card-div" @click="$router.push('/develop/list')">
                         <div class="card-title">技术总结</div>
                         <div class="card-msg">PHP/数据库/Linux/Vue/go  等相关知识点，开发中遇到的问题总结。</div>
-                        <div class="btn" @click="$router.push('/develop/list')">
+                        <div class="btn" @click="$router.push('/develop/list')" v-if='$store.state.width<768?false:true'>
                             <span class="noselect">出发浏览 <i class="el-icon-d-arrow-right"></i></span>
                             <div class="vertical"></div>
                             <div class="horizontal"></div>
@@ -31,10 +31,10 @@
                 </el-card>
                 <el-card shadow="always" :body-style="{ padding: '0px' }">
                     <div style="width:50%;float:right;overflow: hidden;"><el-image class="img2" :src="src2" lazy></el-image></div>
-                    <div class="card-div">
+                    <div class="card-div" @click="$router.push('/read/list')">
                         <div class="card-title">书籍分享</div>
                         <div class="card-msg">一本好书需要慢慢读、细细品味。书籍推荐，分享感悟。</div>
-                        <div class="btn" @click="$router.push('/read/list')">
+                        <div class="btn" @click="$router.push('/read/list')" v-if='$store.state.width<768?false:true'>
                             <span class="noselect">出发浏览 <i class="el-icon-d-arrow-right"></i></span>
                             <div class="vertical"></div>
                             <div class="horizontal"></div>
@@ -42,13 +42,13 @@
                     </div>
                 </el-card>
             </el-col>
-            <el-col :span="10">
+            <el-col :lg="10" :xs="24">
                 <el-card shadow="always" class="oncard" :body-style="{ padding: '0px' }">
                      <div style="width:100%;overflow: hidden;"><el-image class="img3" :src="src3" lazy></el-image></div>
-                     <div class="card-div-3">
+                     <div class="card-div-3" @click="$router.push('/livesty/list')">
                         <div class="card-title-3">生活日志</div>
                         <div class="card-msg-3">想记录的时候记录一下，有感慨的时候抒发一下。</div>
-                        <div class="btn btn-3" @click="$router.push('/livesty/list')">
+                        <div class="btn btn-3" @click="$router.push('/livesty/list')" v-if='$store.state.width<768?false:true'>
                             <span class="noselect">出发浏览 <i class="el-icon-d-arrow-right"></i></span>
                             <div class="vertical"></div>
                             <div class="horizontal"></div>
@@ -129,7 +129,7 @@ data() {
 .main {
     width: 100%;
     height: 100vh;
-    background: url(http://qdv86w78m.bkt.clouddn.com/2.jpg);
+    background: url(http://qfe7tmya7.hb-bkt.clouddn.com/2.jpg);
     background-size: 100% 100%;
     background-attachment: fixed;
 }
@@ -209,5 +209,62 @@ data() {
     100% {  
         transform: translate(0px, 0px);  
     }  
-}  
+}
+@media screen and (max-width:768px) {
+    .main {
+        width: 100%;
+        height: 100vh;
+        background: url(http://qfe7tmya7.hb-bkt.clouddn.com/mob_bg_1.jpg);
+        background-size:cover;
+        background-attachment: fixed;
+    }
+    .con {
+        padding: 50px 0px;
+        margin: 0 auto;
+        width: 95%;
+        height: 780px;
+    }
+    .el-card {
+        margin-bottom: 20px;
+        height: 160px;
+        background: white;
+        overflow: hidden;
+    }
+    .con_title_div {
+        padding-bottom: 50px;
+    }
+    .card-div {
+        width: 50%;
+        height: 160px;
+        float: right;
+    }
+    .card-title {
+        padding: 15px 0px;
+        font-size: 18px;
+    }
+    .card-msg {
+        padding: 0px 10px;
+        text-align: left;
+    }
+    .el-image {
+        width: 100%;
+        height: 160px;
+        transition: all 0.6s;
+    }
+    .oncard {
+        height: 330px;
+    }
+    .card-title-3 {
+        padding: 15px 0px;
+        font-size: 18px;
+    }
+    .card-msg-3 {
+        padding: 0px 10px;
+        text-align: left;
+    }
+    .img3 {
+        width: 100%;
+        height: 220px;
+    }
+}
 </style>

@@ -10,11 +10,11 @@
     </div>
     <el-divider></el-divider>
     <div class="menu">
-      <el-menu :default-active="default_active" class="el-menu-vertical-demo">
-        <el-menu-item index="1">首页</el-menu-item>
-        <el-menu-item index="2">技术总结</el-menu-item>
-        <el-menu-item index="3">书籍分享</el-menu-item>
-        <el-menu-item index="4">生活日志</el-menu-item>
+      <el-menu default-active="1" class="el-menu-vertical-demo">
+        <el-menu-item index="1" @click="$router.push('/')">首页</el-menu-item>
+        <el-menu-item index="2" @click="$router.push('/develop/list')">技术总结</el-menu-item>
+        <el-menu-item index="3" @click="$router.push('/read/list')">书籍分享</el-menu-item>
+        <el-menu-item index="4" @click="$router.push('/livesty/list')">生活日志</el-menu-item>
       </el-menu>
     </div>
   </div>

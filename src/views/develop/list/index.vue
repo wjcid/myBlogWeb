@@ -4,14 +4,15 @@
     <div class="binner">
       <div class="bin_div">
         <div class="bin_title">技术总结</div>
-        <div class="bin_msg">踏上一条总结越来越多、头发越来越少之路 | <i class="el-icon-notebook-2"></i> 文章总数：{{artcount}}</div>
+        <div class="bin_msg">总结越来越多，头发越来越少。 <span v-if='$store.state.width<768?false:true'>| </span> 
+          <br v-if='$store.state.width>768?false:true'> <i class="el-icon-notebook-2"></i> 文章总数：{{artcount}}</div>
       </div>
     </div>
     <CanvasBg v-if='$store.state.width<768?false:true'/>
     <div class="con_main" id="con_main">
         <div class="con_list">
             <el-row :gutter="20">
-                <el-col :span="16">
+                <el-col :lg="16" :xs="24">
                     <el-card shadow="always" :body-style="{ padding: '0px' }" v-for="art in art_list.slice((currentPage-1)*pagesize,currentPage*pagesize)" :key="art.id">
                       <div class="img_div"><el-image :src="art.pic_url" lazy></el-image></div>
                       <div class="card-div" @click="$router.push('/develop/con/'+art.id)" style="cursor: pointer;">
@@ -29,7 +30,7 @@
                       </div>
                     </el-card>
                 </el-col>
-                <el-col :span="8">
+                <el-col :span="8" v-if='$store.state.width<768?false:true'>
                     <Sidebar :tag_list="tag_list" :brolist="brolist" :time_list="time_list" @event1="change" :page_type="page_type" :route_url="route_url"/>
                 </el-col>
             </el-row>
@@ -200,6 +201,53 @@ export default {
   transition: all 0.6s;
 }
 .el-image:hover {
-    transform: scale(1.2); /* 放大1.2倍 */
+  transform: scale(1.2); /* 放大1.2倍 */
+}
+@media screen and (max-width:768px) {
+  .con_list {
+    width: 95%;
+  }
+  .binner {
+    height: 300px;
+  }
+  .bin_div {
+    position:absolute;
+    left: 30px;
+    bottom:50px;
+  }
+  .bin_title {
+    font-size: 20px;
+  }
+  .card-div {
+    width: 50%;
+    height: 123px;
+    float: right;
+  }
+  .card-title {
+      padding: 10px;
+      font-size: 16px;
+      text-align: left;
+  }
+  .img_div {
+    width: 50%;
+    height: 123px;
+    float: left;
+    overflow: hidden;
+  }
+  .card-tag {
+    padding: 0px 10px;
+    font-size: 14px;
+    text-align: left;
+  }
+  .card-time {
+    padding: 5px 10px;
+    font-size: 14px;
+    text-align: left;
+  }
+  .con_main {
+    width: 100%;
+    padding-bottom: 20px;
+    height: 800px;
+  }
 }
 </style>

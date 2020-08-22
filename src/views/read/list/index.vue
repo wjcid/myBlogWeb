@@ -4,30 +4,34 @@
     <div class="binner">
       <div class="bin_div">
         <div class="bin_title">书籍分享</div>
-        <div class="bin_msg">小说--人性--心理--理财，慢慢积累，厚积薄发 | <i class="el-icon-notebook-2" style="font-size:10px;"></i> 文章总数：{{artcount}}</div>
+        <div class="bin_msg">小说--人性--心理--理财，慢慢积累，厚积薄发  
+          <span v-if='$store.state.width<768?false:true'>| </span>
+          <br v-if='$store.state.width>768?false:true'>
+        <i class="el-icon-notebook-2" style="font-size:10px;"></i> 文章总数：{{artcount}}</div>
       </div>
     </div>
     <CanvasBg v-if='$store.state.width<768?false:true' />
     <div class="con_main" id="con_main">
         <div class="con_list">
             <el-row :gutter="20">
-                <el-col :span="16">
+                <el-col :lg="16" :xs="24">
                     <div class="book" v-for="(binfo, index) in book_list.slice((currentPage-1)*pagesize,currentPage*pagesize)" :key="index">
                       <el-image :src="binfo.pic_url" lazy @click="$router.push('/read/con/'+binfo.id)" style="cursor: pointer;"></el-image>
-                      <div class="book-name">{{binfo.title}}</div>
+                      <div class="book-name">{{binfo.title.slice(0,7)}}</div>
                       <div class="book-info"> 
                         <el-tag class="list-tag" 
                           style="margin:5px 5px;" 
                           v-for="(tagd,key) in binfo.tag.split(',')" 
                           :key="key"
-                          :type="tagtypes[Math.floor(Math.random() *5)]">{{tagd}}</el-tag> |
+                          :type="tagtypes[Math.floor(Math.random() *5)]">{{tagd}}</el-tag> <span v-if='$store.state.width<768?false:true'>| </span> 
+                        <br v-if='$store.state.width>768?false:true'>
                         <span><i class="el-icon-collection"></i> {{binfo.create_time}}</span>
                       </div>
                       <el-divider></el-divider>
                     </div>
                 </el-col>
                 
-                <el-col :span="8">
+                <el-col :span="8" v-if='$store.state.width<768?false:true'>
                     <Sidebar :tag_list="tag_list" :brolist="brolist" :time_list="time_list" @event1="change" :page_type="page_type" :route_url="route_url"/>
                 </el-col>
             </el-row>
@@ -176,5 +180,30 @@ export default {
     height: 2px;
     width: 100%;
     margin: 20px 0;
+}
+@media screen and (max-width:768px) {
+  .con_list {
+    width: 95%;
+  }
+  .book {
+    width: 33.33%;
+    height: 285px;
+    float: left;
+  }
+  .el-image {
+    width: 80%;
+    height: 150px;
+  }
+  .binner {
+    height: 300px;
+  }
+  .bin_div {
+    position:absolute;
+    left: 30px;
+    bottom:50px;
+  }
+  .bin_title {
+    font-size: 20px;
+  }
 }
 </style>

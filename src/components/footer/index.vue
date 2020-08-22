@@ -2,12 +2,12 @@
     <div class="footer">
       <div class="foot-con">
       <div class="title-line">
-      <span class="title">| 网站首页 </span>
-      <span class="title">| 技术总结 </span>
-      <span class="title">| 书籍分享</span>
-      <span class="title">| 生活日志 |</span>
+      <span class="title" @click="$router.push('/')">| 网站首页 </span>
+      <span class="title" @click="$router.push('/develop/list')">| 技术总结 </span>
+      <span class="title" @click="$router.push('/read/list')">| 书籍分享</span>
+      <span class="title" @click="$router.push('/livesty/list')">| 生活日志 |</span>
       </div>
-      <div>Copyright © 2020 WJC的博客 | 备案号:<span @click="go(url)" style="cursor:pointer">{{aq}} </span></div>
+      <div class="beian">Copyright © 2020 WJC的博客 | 备案号:<span @click="go(url)" style="cursor:pointer">{{aq}} </span></div>
       </div>
     </div>
 </template>
@@ -39,4 +39,9 @@ export default {
       margin: auto;
       margin-bottom:10px;
     }
+  @media screen and (max-width:768px) {
+    .beian {
+      padding: 0px 10px;
+    }
+  }
 </style>
