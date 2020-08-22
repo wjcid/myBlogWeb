@@ -16,12 +16,12 @@
             </div>
             <el-row :gutter="10">
               <el-col :lg="12" :xs="24" style="cursor: pointer;">
-                <div @click="$router.push({path:'/develop/con/'+last_id},onComplete => {},onAbort => {})">
+                <div @click="$router.push({path:'/read/con/'+last_id},onComplete => {},onAbort => {})">
                 <i class="el-icon-d-arrow-left" v-if='$store.state.width>768?false:true'></i>上一篇：{{last_title}}
                 </div>
               </el-col>
               <el-col :lg="12" :xs="24" style="cursor: pointer;">
-                <div @click="$router.push({path:'/develop/con/'+next_id},onComplete => {},onAbort => {})">
+                <div @click="$router.push({path:'/read/con/'+next_id},onComplete => {},onAbort => {})">
                 下一篇：{{next_title}}<i class="el-icon-d-arrow-right" v-if='$store.state.width>768?false:true'></i>
                 </div>
               </el-col>

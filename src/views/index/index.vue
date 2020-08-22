@@ -215,8 +215,7 @@ data() {
         width: 100%;
         height: 100vh;
         background: url(http://qfe7tmya7.hb-bkt.clouddn.com/mob_bg_1.jpg);
-        background-size:cover;
-        background-attachment: fixed;
+        background-size:100% 100%;
     }
     .con {
         padding: 50px 0px;
