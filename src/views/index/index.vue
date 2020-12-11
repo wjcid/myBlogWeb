@@ -129,7 +129,7 @@ data() {
 .main {
     width: 100%;
     height: 100vh;
-    background: url(http://qfe7tmya7.hb-bkt.clouddn.com/2.jpg);
+    background: url(http://img.cdn.wjcid.com/2.jpg);
     background-size: 100% 100%;
     background-attachment: fixed;
 }
@@ -201,20 +201,20 @@ data() {
 }
 @keyframes icon-up-dowm {  
     0% {  
-        transform: translate(0px, 0px);  
+        transform: translate(0px, 0px);
     }  
     50% {  
-        transform: translate(0px, -20px);  
+        transform: translate(0px, -20px);
     }  
     100% {  
-        transform: translate(0px, 0px);  
+        transform: translate(0px, 0px);
     }  
 }
 @media screen and (max-width:768px) {
     .main {
         width: 100%;
         height: 100vh;
-        background: url(http://qfe7tmya7.hb-bkt.clouddn.com/mob_bg_1.jpg);
+        background: url(http://img.cdn.wjcid.com/mob_bg_1.jpg);
         background-size:100% 100%;
     }
     .con {
