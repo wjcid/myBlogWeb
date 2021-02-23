@@ -7,7 +7,7 @@
       <span class="title" @click="$router.push('/read/list')">| 书籍分享</span>
       <span class="title" @click="$router.push('/livesty/list')">| 生活日志 |</span>
       </div>
-      <div class="beian">Copyright © 2020 WJC的博客 | 备案号:<span @click="go(url)" style="cursor:pointer">{{aq}} </span></div>
+      <div class="beian">Copyright © 2020 WJCID | <span @click="go(url)" style="cursor:pointer">{{aq}} </span></div>
       </div>
     </div>
 </template>
@@ -17,7 +17,7 @@ export default {
   data () {
     return {
       url: 'http://beian.miit.gov.cn',
-      aq: '香港ECS无法备案,攒两年钱再换吧'
+      aq: '京ICP备2020045700号'
     }
   },
   methods: {

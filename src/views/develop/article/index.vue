@@ -5,24 +5,33 @@
       <div class="bin_div">
         <div class="bin_title">{{title}}</div>
         <div class="bin_msg">勤思考，多总结</div>
+        <div class="bin_msg">
+          <span><i class="el-icon-date" style="padding:0 10px 0 0;"></i>{{create_time}}</span>
+          <span><i class="el-icon-view" style="padding:0 10px 0 20px"></i>{{read_num}}</span>
+        </div>
       </div>
     </div>
-    <CanvasBg v-if='$store.state.width<768?false:true'/>
+    <!-- CANVAS 背景 -->
+    <!-- <CanvasBg v-if='$store.state.width<768?false:true'/> -->
     <div class="con_main" id="con_main">
         <el-card shadow="always">
             <div class="content" v-html="content" v-highlight></div>
-            <div class="upload" v-if='$store.state.width<768?false:true'>
-              <a href="#"> 点击下载文档</a>  <div style="font-size:14px;color:red;">*我自己总结的word文档</div>
-            </div>
+              <div class="copyright">
+                作者：wjcid
+                <br />
+                版权声明：本文为原创文章，遵循 CC 4.0 BY 版权协议，转载请附上原文出处链接和本声明。
+                <br />
+                本文链接：https://www.wjcid.com/#{{art_url}}
+              </div>
             <el-row :gutter="10">
               <el-col :lg="12" :xs="24" style="cursor: pointer;">
-                <div class="upart" @click="$router.push({path:'/develop/con/'+last_id},onComplete => {},onAbort => {})">
-                <i class="el-icon-d-arrow-left" v-if='$store.state.width>768?false:true'></i>上一篇：{{last_title}}
+                <div @click="$router.push({path:'/read/con/'+last_id},onComplete => {},onAbort => {})">
+                <i class="el-icon-arrow-left" style="padding:0 10px;"></i>上一篇：{{last_title}}
                 </div>
               </el-col>
               <el-col :lg="12" :xs="24" style="cursor: pointer;">
-                <div class="dowart" @click="$router.push({path:'/develop/con/'+next_id},onComplete => {},onAbort => {})">
-                下一篇：{{next_title}}<i class="el-icon-d-arrow-right" v-if='$store.state.width>768?false:true'></i>
+                <div @click="$router.push({path:'/read/con/'+next_id},onComplete => {},onAbort => {})">
+                下一篇：{{next_title}}<i class="el-icon-arrow-right" style="padding:0 10px;"></i>
                 </div>
               </el-col>
             </el-row>
@@ -60,22 +69,27 @@ export default {
         }).then(res=>{
           this.content = res.data.data.content.content
           this.title = res.data.data.content.title
+          this.create_time = res.data.data.content.create_time
+          this.read_num = res.data.data.content.read_num
           this.last_title = res.data.data.ud.last_title
           this.next_title = res.data.data.ud.next_title
           this.last_id = res.data.data.ud.last_id
           this.next_id = res.data.data.ud.next_id
+          this.art_url = this.$route.path
         })
     }
   },
   data () {
       return {
         title: '',
+        art_url: '',
+        create_time: '2020-12-12 11:11:11',
+        read_num: 0,
         content: '',
         last_id: 0,
         last_title: '',
         next_id: 0,
         next_title: ''
-
       }
   }
 }
@@ -129,11 +143,23 @@ export default {
   line-height: 60px;
 }
 .el-col {
-  background:linear-gradient(to top, rgb(255,255,255) 5%, rgb(110,215,255) 70%);
+  background:#F5F5F5;
+  color: #999;
+}
+.el-col:hover {
+  background-color: #D8D8D8;
+  color: #666;
 }
 .ql-syntax {
   background: black;
 }
+.copyright {
+  padding: 8px;
+  padding-left: 0;
+  font-size: 14px;
+  color: #6f6f82;
+}
+
 @media screen and (max-width:768px) {
   .binner {
     height: 300px;

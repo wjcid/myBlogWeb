@@ -64,13 +64,33 @@
 
 <script>
 export default {
-data() {
-    return {
-    src1: require('@/assets/img/4.jpg'),
-    src2: require('@/assets/img/5.jpg'),
-    src3: require('@/assets/img/qiaoba.jpg')
+    data() {
+        return {
+            visits_num: 0,
+            src1: require('@/assets/img/4.jpg'),
+            src2: require('@/assets/img/5.jpg'),
+            src3: require('@/assets/img/qiaoba.jpg')
+        }
+    },
+    created() {
+        this.visits();
+    },
+    methods: {
+        visits(){
+            // 使用sessionStorage机制 实现不关闭界面前提下
+            // 多次访问首页，不重复计数
+            if (sessionStorage.getItem('isVisits') == null) {
+
+              this.$axios.post(this.$consts.BASE_URL+'visits', {
+                    type: 1
+                }).then(res=>{
+                  this.visits_num = res.data.data.visits_num
+                })
+
+                sessionStorage.setItem('isVisits',true)
+            }
+        },  
     }
-}
 }
 </script>
 <!-- 网格按钮样式特效 -->
@@ -129,7 +149,7 @@ data() {
 .main {
     width: 100%;
     height: 100vh;
-    background: url(http://img.cdn.wjcid.com/2.jpg);
+    background: url(http://img.cdn.wjcid.com/index_2.jpg);
     background-size: 100% 100%;
     background-attachment: fixed;
 }
@@ -152,7 +172,7 @@ data() {
     position: absolute;
     top: 50%;
     width: 100%;
-    color: white;
+    color:  rgb(37, 138, 233);
 }
 .welcome {
     font-size: 2rem;
@@ -214,7 +234,7 @@ data() {
     .main {
         width: 100%;
         height: 100vh;
-        background: url(http://img.cdn.wjcid.com/mob_bg_1.jpg);
+        background: url(http://img.cdn.wjcid.com/mobile_2.jpg);
         background-size:100% 100%;
     }
     .con {

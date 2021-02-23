@@ -1,7 +1,7 @@
 <template>
 <div class="header">
     <div class="icon" @click="$router.push('/')" style="cursor: pointer;">
-        W J C
+        W J C I D
     </div>
     <nav v-if='$store.state.width<768?false:true'>
         <a @click="$router.push({path:menu.route},onComplete => {},onAbort => {})" v-for="(menu, index) in $consts.NAV_MENUS" :key="index" style="cursor: pointer;">{{menu.title}}</a>
